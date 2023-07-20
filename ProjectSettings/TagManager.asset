@@ -6,8 +6,9 @@ TagManager:
   tags:
   - Pellet
   - Pacman
-  - GameManager
   - Large Pellet
+  - Ghost
+  - Game Manager
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Water
   - UI
   - wall
-  - 
+  - Pacman
   - 
   - 
   - 

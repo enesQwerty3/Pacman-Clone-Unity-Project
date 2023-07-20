@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private Vector2 nextDirection = Vector2.zero;
     [SerializeField] private LayerMask wallLayerMask;
     Rigidbody2D rb;
+    private bool isMovementDisabled;
     
     // Start is called before the first frame update
     void Awake() 
@@ -24,6 +25,7 @@ public class Movement : MonoBehaviour
     {
         transform.position = spawnPosition;
         direction = initialDirection;
+        isMovementDisabled = false;
     }
     
     // Update is called once per frame
@@ -35,8 +37,9 @@ public class Movement : MonoBehaviour
 
     /// This function is called every fixed framerate frame, if the MonoBehaviour is enabled.
     void FixedUpdate()
-    {                                                                //Move pacman's rigidbody to a position continuously    
-        rb.MovePosition(rb.position + direction * speed * speedMultiplier * Time.deltaTime);   
+    {             
+        if(!isMovementDisabled)                                                   //Move pacman's rigidbody to a position continuously    
+            rb.MovePosition(rb.position + direction * speed * speedMultiplier * Time.deltaTime);   
     }
 
     public void SetDirection(Vector2 direction)
@@ -65,5 +68,24 @@ public class Movement : MonoBehaviour
         
         else
             return false;
+    }
+
+    public void disableMovement(bool state)
+    {
+        if(state)
+            isMovementDisabled = true;
+        else
+            isMovementDisabled = false;
+    }
+
+    public void ResetState()
+    {
+        speedMultiplier = 1f;
+        direction = initialDirection;
+        nextDirection = Vector2.zero;
+        transform.position = spawnPosition;
+        rb.isKinematic = false;
+        disableMovement(false);
+        //enabled = true;        //enable script
     }
 }

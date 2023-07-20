@@ -62,7 +62,7 @@ PrefabInstance:
     - target: {fileID: 3259707676119580883, guid: 2fde9760580df734b965459e729d1aba, type: 3}
       propertyPath: initialBehavior
       value: 
-      objectReference: {fileID: 7420915118371691651}
+      objectReference: {fileID: 0}
     - target: {fileID: 3259707676119580883, guid: 2fde9760580df734b965459e729d1aba, type: 3}
       propertyPath: initialBehaviors.Array.size
       value: 1
@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 3259707676119580883, guid: 2fde9760580df734b965459e729d1aba, type: 3}
       propertyPath: initialBehaviors.Array.data[0]
       value: 
-      objectReference: {fileID: 7420915118371691651}
+      objectReference: {fileID: 0}
     - target: {fileID: 3259707676119580886, guid: 2fde9760580df734b965459e729d1aba, type: 3}
       propertyPath: animationSprites.Array.data[0]
       value: 
@@ -83,6 +83,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost_Blinky
       objectReference: {fileID: 0}
+    - target: {fileID: 3259707676119580887, guid: 2fde9760580df734b965459e729d1aba, type: 3}
+      propertyPath: m_TagString
+      value: Ghost
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156842495954965010, guid: 2fde9760580df734b965459e729d1aba, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 14a6baffb27b888419ad43f878b2b0e6, type: 2}
     - target: {fileID: 6337672407132840256, guid: 2fde9760580df734b965459e729d1aba, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -101,14 +109,28 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d65aa956b7569874fab274083826a77f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fde9760580df734b965459e729d1aba, type: 3}
---- !u!114 &7420915118371691651 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7758519049117970130, guid: 2fde9760580df734b965459e729d1aba, type: 3}
+--- !u!1 &8776441260940976181 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8402458858377581156, guid: 2fde9760580df734b965459e729d1aba, type: 3}
   m_PrefabInstance: {fileID: 961422878016402001}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90e4b56b62e12c4dab1ac724d70d134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+--- !u!95 &6822008333292819009
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8776441260940976181}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f37022ec7e3c7e04cbd14ac28afb81f3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

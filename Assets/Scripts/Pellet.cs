@@ -10,7 +10,7 @@ public class Pellet : MonoBehaviour
     {
         if(other.gameObject.tag == "Pacman")
         {
-            Debug.Log("Collision with pacman!");
+            //Debug.Log("Collision with pacman!");
             isActive = false;
             FindObjectOfType<GameManager>().PelletEaten(this);
         }
