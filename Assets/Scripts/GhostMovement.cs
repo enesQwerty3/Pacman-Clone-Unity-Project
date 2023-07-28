@@ -6,11 +6,13 @@ public class GhostMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     public float speedMultiplier = 1f;
-    [SerializeField] private Vector2 GhostInitialDirection = Vector2.left;
+    private Vector2 GhostInitialDirection = Vector2.left;
     public Vector2 direction {get ; private set;}
     private Vector2 nextDirection = Vector2.zero;
     [SerializeField] private LayerMask wallLayerMask;
-    Rigidbody2D rb;
+    [SerializeField] private Vector2 startingPosition;
+    public Rigidbody2D rb;
+    private bool disableMovement = false;
     
     void Awake() 
     {
@@ -32,11 +34,12 @@ public class GhostMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //enable and disable movement
-        rb.MovePosition(rb.position + direction * speed * speedMultiplier * Time.deltaTime);
+        if(!disableMovement)
+            rb.MovePosition(rb.position + direction * speed * speedMultiplier * Time.deltaTime);
     }
-    public void SetDirection(Vector2 direction)
+    public void SetDirection(Vector2 direction, bool forced = false)
     {
-        if(DetectCollision(direction))      //Check if there is a collider
+        if(forced || DetectCollision(direction))      //Check if there is a collider
             nextDirection = direction;
         
         else                               //Check if there is no collider
@@ -62,14 +65,24 @@ public class GhostMovement : MonoBehaviour
             return false;
     }
 
+    public void disableGhostMovement(bool state)
+    {
+        if(state)
+            disableMovement = true;
+
+        else
+            disableMovement = false;
+    }
+
     public void ResetState()
     {
         speedMultiplier = 1f;
         direction = GhostInitialDirection;
         nextDirection = Vector2.zero;
-        //transform.position = startingPosition;
+        transform.position = startingPosition;
         rb.isKinematic = false;
         enabled = true;
+        disableGhostMovement(false);
     }
 
 }

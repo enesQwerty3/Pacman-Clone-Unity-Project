@@ -42,12 +42,16 @@
      <Compile Include="Assets\Scripts\GhostHome.cs" />
      <Compile Include="Assets\Scripts\LargePellet.cs" />
      <Compile Include="Assets\Scripts\GhostBehavior.cs" />
+     <Compile Include="Assets\Scripts\Node.cs" />
      <Compile Include="Assets\Scripts\Pacman.cs" />
      <Compile Include="Assets\Scripts\PassageRight.cs" />
      <Compile Include="Assets\Scripts\Ghost.cs" />
      <Compile Include="Assets\Scripts\GhostFrightened.cs" />
+     <Compile Include="Assets\Scripts\MainMenuUI.cs" />
      <Compile Include="Assets\Scripts\GhostChase.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
+     <Compile Include="Assets\Scripts\PauseMenu.cs" />
+     <Compile Include="Assets\Scripts\SliderVolume.cs" />
      <Compile Include="Assets\Scripts\PassageLeft.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

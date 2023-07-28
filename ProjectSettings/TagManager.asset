@@ -9,6 +9,9 @@ TagManager:
   - Large Pellet
   - Ghost
   - Game Manager
+  - Node
+  - Pacman Sound
+  - Slider
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - UI
   - wall
   - Pacman
-  - 
+  - Node
   - 
   - 
   - 
@@ -51,4 +54,7 @@ TagManager:
     locked: 0
   - name: pacman
     uniqueID: 2392720413
+    locked: 0
+  - name: UI
+    uniqueID: 2524297723
     locked: 0

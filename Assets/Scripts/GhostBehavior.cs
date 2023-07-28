@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostBehavior : MonoBehaviour
+public abstract class GhostBehavior : MonoBehaviour
 {
+    public Ghost ghost {get; private set;}
+    public float duration;
     // Start is called before the first frame update
-    void Start()
+    void Awake() 
     {
-        
+        ghost = GetComponent<Ghost>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Enable()
     {
-        
+        Enable(duration);
+    }
+    
+    public virtual void Enable(float duration)
+    {
+        enabled = true;
+        CancelInvoke();
+        Invoke(nameof(Disable), duration);
+    }
+
+    public virtual void Disable()
+    {
+        enabled = false;
+        CancelInvoke();
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2150442794279967395}
   - component: {fileID: -777902100346675850}
   - component: {fileID: 4968112513249138318}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: pelletLarge
   m_TagString: Large Pellet
   m_Icon: {fileID: 0}
@@ -98,7 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4c27b1061086c4daa4b9f42e0ec959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastCollisionTime: 0
 --- !u!58 &4968112513249138318
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 public class LargePellet : MonoBehaviour
 {
     public bool isActive {get; private set;}
+    public float duration = 5f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
