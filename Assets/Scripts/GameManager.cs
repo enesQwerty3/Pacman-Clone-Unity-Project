@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public GameObject Pacman;
     public Ghost[] Ghosts;
-    //public GameObject Pellet;
     public Movement movement;
     public int score {get; private set;}
     public int lives {get; private set;}
@@ -16,33 +15,26 @@ public class GameManager : MonoBehaviour
     public Text gameOverText;
     public Text livesText;
     public Text scoreText;
-    //public Text pressAnyKeyToStart;
-    //private bool isKeyPressed = false;         //check if any key pressed
    
     // Start is called before the first frame update
     void Start()
     {     
-        NewGame();
-        
+        NewGame();   
     }
 
     // Update is called once per frame
+    /*
     void Update()
     {
-        /*if(!isKeyPressed)
-            checkIfAnyKeyPressed(); //start game if player pressed any key
-        */
+
     }
-    
+    */
     private void NewGame()
     {
         SetScore(0);
         Setlives(3); 
-        //this.isKeyPressed = false;
-        //ResetState();
-        //pressAnyKeyToStart.enabled = true;
         readyText.enabled = true;
-        Invoke(nameof(UnfreezePacmanAndGhost), 3f);
+        Invoke(nameof(ResetState), 3f);
     }
 
     private void ResetState()
@@ -52,6 +44,7 @@ public class GameManager : MonoBehaviour
             Ghosts[i].ResetState();
         }
         Pacman.GetComponent<Pacman>().ResetState();
+        readyText.enabled = false;
     }
 
     private void GameOver()
@@ -60,7 +53,6 @@ public class GameManager : MonoBehaviour
         Pacman.gameObject.SetActive(false);
         for(int i=0; i<4 ; i++)
             Ghosts[i].gameObject.SetActive(false);
-        //Invoke(nameof(ResetState), 5f);
     }
 
     private void NewRound()
@@ -68,22 +60,6 @@ public class GameManager : MonoBehaviour
         ResetState();
         NewGame();
     }
-
-    
-    /*private void checkIfAnyKeyPressed()
-    {
-        if(Input.anyKeyDown && !isKeyPressed)
-        {   
-            pressAnyKeyToStart.enabled = false; 
-            Pacman.GetComponent<Pacman>().enabled = true;
-            Pacman.GetComponent<Movement>().enabled =  true;
-
-            for(int i=0; i<4; i++)
-                Ghosts[i].GhostMovement.enabled = true;
-            
-            isKeyPressed = true;
-        }
-    }*/
 
     void SetScore(int score)   // set pacman's score
     {
@@ -145,10 +121,10 @@ public class GameManager : MonoBehaviour
 
     public async void LargePelletEaten(LargePellet largePellet)     // if large pellet is eaten
     {
-        /*for(int i = 0; i < 4; i++)        //activate ghost frightened behaviour for all ghosts
+        for(int i = 0; i < 4; i++)        //activate ghost frightened behaviour for all ghosts
         {
             Ghosts[i].frightened.Enable(largePellet.duration);
-        }*/
+        } 
 
         bool isActive;
         int delay = 0;
@@ -179,15 +155,5 @@ public class GameManager : MonoBehaviour
         
         else if(pellet.tag == "Large Pellet")
             pellet.GetComponent<LargePellet>().SetPelletState(isActive, delay);
-    }
-
-    private void UnfreezePacmanAndGhost()
-    {
-        readyText.enabled = false;
-        Pacman.GetComponent<Pacman>().enabled = true;
-        Pacman.GetComponent<Movement>().enabled =  true;
-
-        for(int i=0; i<4; i++)
-            Ghosts[i].GhostMovement.enabled = true;
     }
 }

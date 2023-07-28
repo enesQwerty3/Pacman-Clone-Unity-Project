@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 4941188169873956543}
   - component: {fileID: 4891421158047655070}
   - component: {fileID: 2489937405211805805}
+  - component: {fileID: 6148395165013485943}
   - component: {fileID: 6663663040134457789}
   - component: {fileID: 7956850240771680348}
   m_Layer: 7
@@ -180,6 +181,7 @@ MonoBehaviour:
   initialBehavior: {fileID: 0}
   pacman: {fileID: 0}
   points: 100
+  animator: {fileID: 0}
 --- !u!114 &8693792046520705304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +200,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   startingPosition: {x: 0, y: 0}
+  rb: {fileID: 0}
 --- !u!114 &4941188169873956543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,13 +235,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3259707676119580887}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 911d633c1a95f8844a56d1b421accf50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0
+  body: {fileID: 0}
+  eyes: {fileID: 0}
+  blue: {fileID: 0}
+  white: {fileID: 0}
   target: {fileID: 0}
+--- !u!114 &6148395165013485943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3259707676119580887}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417f16f081e78ab4fb344e734a3febf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0
+  inside: {fileID: 0}
+  outside: {fileID: 0}
 --- !u!114 &6663663040134457789
 MonoBehaviour:
   m_ObjectHideFlags: 0

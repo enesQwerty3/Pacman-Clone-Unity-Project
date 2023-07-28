@@ -6,12 +6,62 @@ public class GhostScatter : GhostBehavior
 {   
     //public LayerMask nodeLayerMask;
     private Node ClosestNode;
-    // Start is called before the first frame update
-    
     private void OnDisable() 
     {
         Debug.Log("Scatter Disabled!");
-        ghost.chase.Enable();
+        ghost.chase.Enable();              //when scatter disabled enable chase behaviour
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Node" && enabled)
+        {
+            Node node = other.gameObject.GetComponent<Node>();
+            int index = Random.Range(0, node.avalibleDirections.Count);      //choose a random direction index from avaliable directions list
+            int randomIndex = 0;
+            Debug.Log("Random Number: " + index);
+            if(node.avalibleDirections[index] == -ghost.GhostMovement.direction && node.avalibleDirections.Count > 2)
+            {
+                if(index + 1 < node.avalibleDirections.Count)
+                    ghost.GhostMovement.SetDirection(node.avalibleDirections[index + 1]);
+                
+                else
+                {
+                    randomIndex = Random.Range(0,2);
+                    if(randomIndex == 0)
+                        ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 1]);
+                
+                    else if(randomIndex == 1)
+                        ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 2]);
+                    
+                    
+                    else if(node.avalibleDirections.Count == 4)
+                    {
+                        randomIndex = Random.Range(0,3);
+                        if(randomIndex == 0)
+                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 1]);
+                
+                        else if(randomIndex == 1)
+                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 2]);
+                        
+                        else
+                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 3]);
+                    }
+                }  
+            }
+            
+            else if(node.avalibleDirections[index] == -ghost.GhostMovement.direction && node.avalibleDirections.Count <= 2)
+            {
+                if(index + 1 < node.avalibleDirections.Count)
+                ghost.GhostMovement.SetDirection(node.avalibleDirections[1]);
+        
+                else
+                ghost.GhostMovement.SetDirection(node.avalibleDirections[0]);
+            }
+
+            else
+                ghost.GhostMovement.SetDirection(node.avalibleDirections[index]);
+        }
     }
 
     /*private void FixedUpdate()
@@ -81,58 +131,6 @@ public class GhostScatter : GhostBehavior
         else
             ghost.GhostMovement.SetDirection(ClosestNode.avalibleDirections[index]);
     }*/
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.gameObject.tag == "Node" && enabled)
-        {
-            Node node = other.gameObject.GetComponent<Node>();
-            int index = Random.Range(0, node.avalibleDirections.Count);      //choose a random direction index from avaliable directions list
-            int randomIndex = 0;
-            Debug.Log("Random Number: " + index);
-            if(node.avalibleDirections[index] == -ghost.GhostMovement.direction && node.avalibleDirections.Count > 2)
-            {
-                if(index + 1 < node.avalibleDirections.Count)
-                    ghost.GhostMovement.SetDirection(node.avalibleDirections[index + 1]);
-                
-                else
-                {
-                    randomIndex = Random.Range(0,2);
-                    if(randomIndex == 0)
-                        ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 1]);
-                
-                    else if(randomIndex == 1)
-                        ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 2]);
-                    
-                    
-                    else if(node.avalibleDirections.Count == 4)
-                    {
-                        randomIndex = Random.Range(0,3);
-                        if(randomIndex == 0)
-                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 1]);
-                
-                        else if(randomIndex == 1)
-                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 2]);
-                        
-                        else
-                            ghost.GhostMovement.SetDirection(node.avalibleDirections[index - 3]);
-                    }
-                }  
-            }
-            
-            else if(node.avalibleDirections[index] == -ghost.GhostMovement.direction && node.avalibleDirections.Count <= 2)
-            {
-                if(index + 1 < node.avalibleDirections.Count)
-                ghost.GhostMovement.SetDirection(node.avalibleDirections[1]);
-        
-                else
-                ghost.GhostMovement.SetDirection(node.avalibleDirections[0]);
-            }
-
-            else
-                ghost.GhostMovement.SetDirection(node.avalibleDirections[index]);
-        }
-    }
 }
 
 

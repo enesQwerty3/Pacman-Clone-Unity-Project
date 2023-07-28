@@ -86,6 +86,6 @@ public class Movement : MonoBehaviour
         transform.position = spawnPosition;
         rb.isKinematic = false;
         disableMovement(false);
-        //enabled = true;        //enable script
+        enabled = true;        //enable script
     }
 }

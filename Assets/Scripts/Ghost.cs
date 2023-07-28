@@ -12,6 +12,7 @@ public class Ghost : MonoBehaviour
     public GhostBehavior initialBehavior;
     public Transform pacman;
     public int points = 100;
+    //public Animator animator;
 
     private Vector2[] Points = new Vector2[4];
     private void Awake()
@@ -26,17 +27,11 @@ public class Ghost : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //frightened.Disable();
-        chase.Disable();
-        scatter.Disable();
-        /*if (home != initialBehavior) 
-            home.Disable();*/
-        if (initialBehavior != null) // check if key pressed at the begening ??
-            initialBehavior.Enable();
-        //ResetState();
+        //ResetState();   
     }
 
     // Update is called once per frame
+    /*
     void Update()
     {
         Points[0] = new Vector2(gameObject.transform.position.x - 2f, gameObject.transform.position.y);
@@ -51,17 +46,17 @@ public class Ghost : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(new Vector3(Points[0].x, Points[0].y, 0), new Vector3(Points[1].x, Points[1].y, 0));
         Gizmos.DrawLine(new Vector3(Points[2].x, Points[2].y, 0), new Vector3(Points[3].x, Points[3].y, 0));
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
-            /*if (frightened.enabled)
-                GameObject.FindWithTag("Game Manager").GetComponent<GameManager>().GhostEaten(this);*/
+            if (frightened.enabled)    //
+                GameObject.FindWithTag("Game Manager").GetComponent<GameManager>().GhostEaten(this);
 
                 
-            //else 
+            else //
                 GameObject.FindWithTag("Game Manager").GetComponent<GameManager>().PacmanEaten();
         }
     }
@@ -70,12 +65,12 @@ public class Ghost : MonoBehaviour
     {
         gameObject.SetActive(true);
         GhostMovement.ResetState();
-        //frightened.Disable();
+        frightened.Disable();    //
         chase.Disable();
-        scatter.Disable();
-
-        /*if (home != initialBehavior) 
-            home.Disable();*/
+        scatter.Enable();
+        // /*
+        if (home != initialBehavior)  
+            home.Disable();           //*/
         if (initialBehavior != null)
             initialBehavior.Enable();
     }

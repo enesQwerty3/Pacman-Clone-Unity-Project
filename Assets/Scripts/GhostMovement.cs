@@ -6,7 +6,7 @@ public class GhostMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     public float speedMultiplier = 1f;
-    private Vector2 GhostInitialDirection = Vector2.left;
+    [SerializeField] private Vector2 GhostInitialDirection = Vector2.zero;
     public Vector2 direction {get ; private set;}
     private Vector2 nextDirection = Vector2.zero;
     [SerializeField] private LayerMask wallLayerMask;

@@ -10,7 +10,7 @@ public class GhostChase : GhostBehavior
 
     private void OnDisable() 
     {
-        ghost.scatter.Enable();
+        ghost.scatter.Enable();        //when disabled enable scatter behaviour
         Debug.Log("Scatter Enabled!");
     }
 
