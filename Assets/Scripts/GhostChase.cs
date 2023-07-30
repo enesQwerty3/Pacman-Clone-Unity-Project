@@ -8,10 +8,11 @@ public class GhostChase : GhostBehavior
     [SerializeField] private Transform target;
     private Vector2 direction = Vector2.zero;
 
-    private void OnDisable() 
+    private void OnDisable()   //when disabled enable scatter behaviour
     {
-        ghost.scatter.Enable();        //when disabled enable scatter behaviour
         Debug.Log("Scatter Enabled!");
+        if(!ghost.frightened.enabled)        
+            ghost.scatter.Enable();   // 
     }
 
     private void OnTriggerEnter2D(Collider2D other) 

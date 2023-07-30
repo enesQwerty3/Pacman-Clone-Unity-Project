@@ -11,7 +11,7 @@ public class GhostMovement : MonoBehaviour
     private Vector2 nextDirection = Vector2.zero;
     [SerializeField] private LayerMask wallLayerMask;
     [SerializeField] private Vector2 startingPosition;
-    public Rigidbody2D rb;
+    public Rigidbody2D rb;     //
     private bool disableMovement = false;
     
     void Awake() 
@@ -80,7 +80,7 @@ public class GhostMovement : MonoBehaviour
         direction = GhostInitialDirection;
         nextDirection = Vector2.zero;
         transform.position = startingPosition;
-        rb.isKinematic = false;
+        rb.isKinematic = false;     //
         enabled = true;
         disableGhostMovement(false);
     }

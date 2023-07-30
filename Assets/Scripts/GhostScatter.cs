@@ -6,10 +6,11 @@ public class GhostScatter : GhostBehavior
 {   
     //public LayerMask nodeLayerMask;
     private Node ClosestNode;
-    private void OnDisable() 
+    private void OnDisable()  //when scatter disabled enable chase behaviour
     {
-        Debug.Log("Scatter Disabled!");
-        ghost.chase.Enable();              //when scatter disabled enable chase behaviour
+        Debug.Log("Scatter Disabled!");   
+        if(!ghost.frightened.enabled)
+            ghost.chase.Enable();          //
     }
 
     private void OnTriggerEnter2D(Collider2D other)

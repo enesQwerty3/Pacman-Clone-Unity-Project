@@ -9,7 +9,7 @@ public class GhostFrightened : GhostBehavior
     public SpriteRenderer blue;
     public SpriteRenderer white;
     [SerializeField] private Transform target;
-    private Vector2 direction = Vector2.zero;
+    private Vector2 direction;
     public bool eaten {get; private set;}
 
     public override void Enable(float duration)
@@ -53,25 +53,16 @@ public class GhostFrightened : GhostBehavior
     {
         //ghost.movement.speedMultiplier = 0.5f;
         eaten = false;
+        ghost.scatter.Disable();
+        ghost.chase.Disable();
     }
 
     private void OnDisable()
     {
         //ghost.movement.speedMultiplier = 1f;
         eaten = false;
+        ghost.scatter.Enable();
     }
-
-
-    /*private void OnDisable() 
-    {
-        ghost.scatter.Enable();    
-    }
-
-    private void OnEnable()  // !!
-    {
-        ghost.scatter.Disable();
-        ghost.chase.Disable();    
-    }*/
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -79,26 +70,26 @@ public class GhostFrightened : GhostBehavior
        {
             Node node = other.GetComponent<Node>();
             float maxDistanceBetween = float.MinValue;
+            direction = Vector2.zero;
 
             foreach(Vector2 avaliableDirection in node.avalibleDirections)
             {
                 Vector3 newPosition = transform.position + new Vector3(avaliableDirection.x, avaliableDirection.y);
-                float distanceBetween = (target.position - newPosition).sqrMagnitude;
+                float distanceBetween = (newPosition - target.position).sqrMagnitude;  //target.position - newPosition
                 if(distanceBetween > maxDistanceBetween)
                 {
                     maxDistanceBetween = distanceBetween;
                     direction = avaliableDirection;
                 }
-                ghost.GhostMovement.SetDirection(direction);
-            }  
+            }
+            ghost.GhostMovement.SetDirection(direction);  
        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Pacman")
+        if (collision.gameObject.tag == "Pacman" && enabled)
         {
-            if (enabled) 
-                Eaten();
+            Eaten();
         }
     }
 }

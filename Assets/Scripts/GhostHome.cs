@@ -15,7 +15,8 @@ public class GhostHome : GhostBehavior
     {
         // Check for active self to prevent error when object is destroyed
         if (gameObject.activeInHierarchy) 
-            StartCoroutine(ExitTransition());    
+            StartCoroutine(ExitTransition());
+        ghost.scatter.Enable();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -31,7 +32,7 @@ public class GhostHome : GhostBehavior
     {
         // Turn off movement while we manually animate the position
         ghost.GhostMovement.SetDirection(Vector2.up, true);
-        ghost.GhostMovement.rb.isKinematic = true;
+        ghost.GhostMovement.rb.isKinematic = true;      //
         ghost.GhostMovement.enabled = false;
 
         Vector3 position = transform.position;
@@ -59,7 +60,7 @@ public class GhostHome : GhostBehavior
 
         // Pick a random direction left or right and re-enable movement
         ghost.GhostMovement.SetDirection(new Vector2(Random.value < 0.5f ? -1f : 1f, 0f), true);
-        ghost.GhostMovement.rb.isKinematic = false;
+        ghost.GhostMovement.rb.isKinematic = false;    //true?
         ghost.GhostMovement.enabled = true;
     }
 
