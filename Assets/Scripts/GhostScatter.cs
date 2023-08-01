@@ -8,7 +8,7 @@ public class GhostScatter : GhostBehavior
     private Node ClosestNode;
     private void OnDisable()  //when scatter disabled enable chase behaviour
     {
-        Debug.Log("Scatter Disabled!");   
+        //Debug.Log("Scatter Disabled!");   
         if(!ghost.frightened.enabled)
             ghost.chase.Enable();          //
     }
@@ -20,7 +20,7 @@ public class GhostScatter : GhostBehavior
             Node node = other.gameObject.GetComponent<Node>();
             int index = Random.Range(0, node.avalibleDirections.Count);      //choose a random direction index from avaliable directions list
             int randomIndex = 0;
-            Debug.Log("Random Number: " + index);
+            //Debug.Log("Random Number: " + index);
             if(node.avalibleDirections[index] == -ghost.GhostMovement.direction && node.avalibleDirections.Count > 2)
             {
                 if(index + 1 < node.avalibleDirections.Count)

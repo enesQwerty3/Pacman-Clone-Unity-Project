@@ -1,0 +1,4 @@
+player3 1980
+player1 1540
+player2 510
+player4 10

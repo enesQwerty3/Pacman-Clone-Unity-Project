@@ -36,7 +36,9 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\SelectPlayer.cs" />
      <Compile Include="Assets\Scripts\GhostMovement.cs" />
+     <Compile Include="Assets\Scripts\GhostEyes.cs" />
      <Compile Include="Assets\Scripts\GhostScatter.cs" />
      <Compile Include="Assets\Scripts\Pellet.cs" />
      <Compile Include="Assets\Scripts\GhostHome.cs" />
@@ -55,6 +57,7 @@
      <Compile Include="Assets\Scripts\PassageLeft.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+     <None Include="Assets\Players.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
