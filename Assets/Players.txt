@@ -2,6 +2,4 @@ aaaa 5425
 player2 5000
 player3 2600
 player4 2300
-batuc 1850
-player1 1625
-dd 10
+omar 1000

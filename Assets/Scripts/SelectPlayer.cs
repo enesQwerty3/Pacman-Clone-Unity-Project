@@ -22,14 +22,8 @@ public class SelectPlayer : MonoBehaviour
     void Start()
     {
         CreateFile();         //create Players.txt
-        //UpdateFile();
-        /*if(PlayerPrefs.HasKey("playerName") && PlayerPrefs.HasKey("highscore"))
-        {
-            UpdatePlayerData();
-        }*/
-        UpdatePlayerData();    
-        
-        LoadFromFile();        //load payer names and scores from Players.txt  //Set onClick Select player!!
+        UpdatePlayerData();   //Update player data 
+        LoadFromFile();        //load payer names and scores from Players.txt to playerDataList  
     }
 
     // Update is called once per frame
@@ -50,19 +44,26 @@ public class SelectPlayer : MonoBehaviour
     public void UpdateFile()
     {
         string newLine;        //string variable which will be inserted to text file
-        if(CurrentPlayer.playerName != null && playerDataList.Find(x => x.playerName == CurrentPlayer.playerName) == null) //check if CurrentPlayer object is in the list 
-        {
+        if(CurrentPlayer.playerName != null /*&& playerDataList.Find(x => x.playerName == CurrentPlayer.playerName) == null*/) 
+        {       
+            if(playerDataList.Find(x => x.playerName == CurrentPlayer.playerName) == null) //check if CurrentPlayer object is in the list 
+            {
                 playerDataList.Add(CurrentPlayer);
+                PlayerPrefs.SetString("playerName", playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).playerName);
+                PlayerPrefs.SetInt("highscore", playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).score);
                 Debug.Log("Displayed before second loadFromFile()");
+            }
+            else // if player that tried to create is in the list then select player don't create new player
+            {
+                string lastPlayerName = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).playerName;
+                int lastPlayerScore = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).score;
+                Debug.Log("currentPlayerName:" + " " + lastPlayerName + "  " + "currentPlayerScore: " + lastPlayerScore);
+                PlayerPrefs.SetString("playerName", lastPlayerName);
+                PlayerPrefs.SetInt("highscore", lastPlayerScore);
+            }                                                                             //
+
         }
-        else                        // if player that tried to create is in the list then select player don't create new player
-        {                           
-            string currentPlayerName = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).playerName;
-            int currentPlayerScore = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).score;
-            PlayerPrefs.SetString("playerName", currentPlayerName);
-            PlayerPrefs.SetInt("highscore", currentPlayerScore);
-        }    
-    
+
         playerDataList.Sort((x, y) => y.score.CompareTo(x.score));     //sort playerDataList (score descending)
         File.WriteAllText(txtPath, "");   //clear text file
         foreach(PlayerData player in playerDataList)       //insert new player data and scores to text file
@@ -78,9 +79,7 @@ public class SelectPlayer : MonoBehaviour
     {
         if(File.Exists(txtPath) && File.ReadAllLines(txtPath) != null)
         {
-            //Debug.Log("LoadFromFile()");
             int i = 0;
-            //int k = 0;
             int score = 0;
             string playerName;
             string[] strings = File.ReadAllLines(txtPath); 
@@ -131,10 +130,8 @@ public class SelectPlayer : MonoBehaviour
         string playerName = _playerData[0];
         int score = int.Parse(_playerData[1]);
 
-        PlayerPrefs.SetString("playerName", playerName);      //send selected players name with PlayerPrefs to other scene
-        //Debug.Log(PlayerPrefs.GetString("playerName")); 
+        PlayerPrefs.SetString("playerName", playerName);      //send selected players name with PlayerPrefs to other scene 
         PlayerPrefs.SetInt("highscore", score);     //send selected players score with PlayerPrefs to other scene 
-        //PlayerPrefs.Save();
         Debug.Log("Player Score: " + score);
     }
     
@@ -144,11 +141,10 @@ public class SelectPlayer : MonoBehaviour
         int highscore = PlayerPrefs.GetInt("highscore");
         LoadFromFile();
         Debug.Log("UpdatePlayerData playerName - score: " + _playerName + " - " + highscore);
-        /*playerDataList.Find(player => player.playerName == _playerName).score = highscore;
-        UpdateFile();*/
+        
         if(playerDataList.Find(player => player.playerName == _playerName).score != highscore)  //if high score of selected player is changed then change it list data
         {         
-            Debug.Log("xxxxxx");                                                                              //and text file
+            Debug.Log("Change player highscore.");                                                                              //and text file
             playerDataList.Find(player => player.playerName == _playerName).score = highscore;
             UpdateFile();
         }
