@@ -23,7 +23,13 @@ public class SelectPlayer : MonoBehaviour
     {
         CreateFile();         //create Players.txt
         //UpdateFile();
-        LoadFromFile();       //load payer names and scores from Players.txt  //Set onClick Select player!!
+        /*if(PlayerPrefs.HasKey("playerName") && PlayerPrefs.HasKey("highscore"))
+        {
+            UpdatePlayerData();
+        }*/
+        UpdatePlayerData();    
+        
+        LoadFromFile();        //load payer names and scores from Players.txt  //Set onClick Select player!!
     }
 
     // Update is called once per frame
@@ -43,28 +49,36 @@ public class SelectPlayer : MonoBehaviour
 
     public void UpdateFile()
     {
-        string newLine;                 //string variable which will be inserted to text file
-        File.WriteAllText(txtPath, "");                             //clear text file
-        if(CurrentPlayer.playerName != null && playerDataList.Find(x => x.playerName == CurrentPlayer.playerName) == null) 
-            //if current player isn't null and not in the list (to avoid multiplying same player)
-            playerDataList.Add(CurrentPlayer);
-            
-        playerDataList.Sort((x, y) => y.score.CompareTo(x.score));     //sort playerDataList score descending
-        
+        string newLine;        //string variable which will be inserted to text file
+        if(CurrentPlayer.playerName != null && playerDataList.Find(x => x.playerName == CurrentPlayer.playerName) == null) //check if CurrentPlayer object is in the list 
+        {
+                playerDataList.Add(CurrentPlayer);
+                Debug.Log("Displayed before second loadFromFile()");
+        }
+        else                        // if player that tried to create is in the list then select player don't create new player
+        {                           
+            string currentPlayerName = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).playerName;
+            int currentPlayerScore = playerDataList.Find(x => x.playerName == CurrentPlayer.playerName).score;
+            PlayerPrefs.SetString("playerName", currentPlayerName);
+            PlayerPrefs.SetInt("highscore", currentPlayerScore);
+        }    
+    
+        playerDataList.Sort((x, y) => y.score.CompareTo(x.score));     //sort playerDataList (score descending)
+        File.WriteAllText(txtPath, "");   //clear text file
         foreach(PlayerData player in playerDataList)       //insert new player data and scores to text file
         {
-            //Debug.Log(player.playerName + " " + player.score);
             newLine = (player.playerName + " " + player.score.ToString() +"\n");
             File.AppendAllText(txtPath, newLine);
         }                                                     //delete sixth player's data?
-        playerDataList.Clear();  //delete all list items after loading them from txt //when called again this function each time
-                                                                                    //list has to be cleared to avoid multiplying data
+        playerDataList.Clear();  //delete all list items after loading them from txt 
+        //when called again this function each time list has to be cleared to avoid multiplying data  
     }
 
     public void LoadFromFile()         //read player data from text file (player name, score)
     {
         if(File.Exists(txtPath) && File.ReadAllLines(txtPath) != null)
         {
+            //Debug.Log("LoadFromFile()");
             int i = 0;
             //int k = 0;
             int score = 0;
@@ -97,7 +111,7 @@ public class SelectPlayer : MonoBehaviour
         else
         {
             Debug.Log("File doesn't exists!");
-            playerCount = 0;       //if there is no line this mean there isn't any player created before so set player count to 0
+            //playerCount = 0;       //if there is no line this mean there isn't any player created before so set player count to 0
         }    
     }
 
@@ -107,22 +121,40 @@ public class SelectPlayer : MonoBehaviour
         CurrentPlayer.score = 0;
         UpdateFile();  //update text file data
         LoadFromFile(); //load data from file to the buttons and player list
+        CurrentPlayer.playerName = null;
+        CurrentPlayer.score = 0;
     }
 
     public void _SelectPlayer(Text buttonText)  //send selected players highscore to other scene by PlayerPrefs!!
     {
-        string[] _playerData = buttonText.text.Split(" ", 2);
+        string[] _playerData = buttonText.text.Split(" ", 2);  //get player name and score from button
+        string playerName = _playerData[0];
         int score = int.Parse(_playerData[1]);
-        Debug.Log("Score: " + score);
-        //send selected players score with PlayerPrefs to other scene //
-    }
 
-    public void UpdatePlayerData()
-    {                                   //when player turn back to the menu update text file and clear player last score from PlayerPrefs
-        return;   
+        PlayerPrefs.SetString("playerName", playerName);      //send selected players name with PlayerPrefs to other scene
+        //Debug.Log(PlayerPrefs.GetString("playerName")); 
+        PlayerPrefs.SetInt("highscore", score);     //send selected players score with PlayerPrefs to other scene 
+        //PlayerPrefs.Save();
+        Debug.Log("Player Score: " + score);
     }
     
-}
+    public void UpdatePlayerData()      
+    {                   //when player turn back to the menu update text file and clear player last score from PlayerPrefs
+        string _playerName = PlayerPrefs.GetString("playerName");
+        int highscore = PlayerPrefs.GetInt("highscore");
+        LoadFromFile();
+        Debug.Log("UpdatePlayerData playerName - score: " + _playerName + " - " + highscore);
+        /*playerDataList.Find(player => player.playerName == _playerName).score = highscore;
+        UpdateFile();*/
+        if(playerDataList.Find(player => player.playerName == _playerName).score != highscore)  //if high score of selected player is changed then change it list data
+        {         
+            Debug.Log("xxxxxx");                                                                              //and text file
+            playerDataList.Find(player => player.playerName == _playerName).score = highscore;
+            UpdateFile();
+        }
+        playerDataList.Clear();
+    }  
+}   
 
 public class PlayerData
 {

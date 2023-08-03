@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public Text gameOverText;
     public Text livesText;
     public Text scoreText;
+    public Text highscoreText;
+    public int highscore;
    
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
     private void NewGame()
     {
         SetScore(0);
-        Setlives(3); 
+        Setlives(3);
+        SetHighscore(); 
         readyText.enabled = true;
         Invoke(nameof(ResetState), 3f);
     }
@@ -61,10 +64,21 @@ public class GameManager : MonoBehaviour
         NewGame();
     }
 
-    void SetScore(int score)   // set pacman's score
+    void SetScore(int _score)   // set pacman's score
     {
-        this.score = score;
-        scoreText.text = this.score.ToString();
+        score = _score;
+        if(score > PlayerPrefs.GetInt("highscore"))
+        {
+            PlayerPrefs.SetInt("highscore", score);    //set player score to highscore PlayerPrefs
+            SetHighscore();         //change highscore text in game
+        }    
+        scoreText.text = score.ToString();
+    }
+
+    public void SetHighscore()
+    {
+        //PlayerPrefs.GetString("playerName");
+        highscoreText.text = PlayerPrefs.GetInt("highscore").ToString();
     }
 
     void Setlives(int lives)   // set pacman's lives

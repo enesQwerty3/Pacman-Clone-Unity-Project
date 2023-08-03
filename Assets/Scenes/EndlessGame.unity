@@ -2304,6 +2304,8 @@ MonoBehaviour:
   gameOverText: {fileID: 1426214635}
   livesText: {fileID: 609588670}
   scoreText: {fileID: 1149183958}
+  highscoreText: {fileID: 1054987695}
+  highscore: 0
 --- !u!1 &1100955468
 GameObject:
   m_ObjectHideFlags: 0
