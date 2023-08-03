@@ -1,5 +1,8 @@
+bbb 16800
+new 6700
+player4 6200
+new2 6000
 aaaa 5425
 player2 5000
-player3 2600
-player4 2300
-omar 1000
+player3 4875
+omar 4500

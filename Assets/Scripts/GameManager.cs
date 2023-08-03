@@ -17,11 +17,15 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text highscoreText;
     public int highscore;
+    public Transform pellets;
+    private int pelletCount = 0;
+    private string gameMode;
    
     // Start is called before the first frame update
     void Start()
-    {     
-        NewGame();   
+    {   
+        gameMode = PlayerPrefs.GetString("gameMode");  
+        NewGame();
     }
 
     // Update is called once per frame
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         Setlives(3);
         SetHighscore(); 
+        if(gameMode == "ClassicGame")
+            CheckIfAllPelletsEaten(true);
         readyText.enabled = true;
         Invoke(nameof(ResetState), 3f);
     }
@@ -87,7 +93,7 @@ public class GameManager : MonoBehaviour
         livesText.text = "x" + lives.ToString();
     }
 
-    bool isPacmanDead()   // Is pacman dead?
+    bool IsPacmanDead()   // Is pacman dead?
     {   
         if(this.lives == 0)   // if pacman dead play death animation
             return true;
@@ -99,7 +105,7 @@ public class GameManager : MonoBehaviour
     public void PacmanEaten()
     {
         Setlives(this.lives - 1);
-        if(isPacmanDead())
+        if(IsPacmanDead())
         {
             Pacman.GetComponent<Pacman>().DisableGetIput(true);
             Pacman.GetComponent<Movement>().disableMovement(true);
@@ -108,7 +114,7 @@ public class GameManager : MonoBehaviour
             Pacman.GetComponent<Pacman>().playDeathAnimation();
             Invoke(nameof(GameOver), 5.0f);
         }
-        else if(!isPacmanDead())
+        else if(!IsPacmanDead())
         {
             Pacman.GetComponent<Pacman>().DisableGetIput(true);
             Pacman.GetComponent<Movement>().disableMovement(true);
@@ -129,8 +135,11 @@ public class GameManager : MonoBehaviour
         bool isActive;
         pellet.gameObject.SetActive(false);
         SetScore(this.score + 25);
+        if(gameMode == "ClassicGame")
+            CheckIfAllPelletsEaten();
         isActive = pellet.gameObject.GetComponent<Pellet>().isActive;
-        SetActivePellet(pellet.gameObject, isActive, 10000);
+        if(gameMode == "EndlessGame")
+            SetActivePellet(pellet.gameObject, isActive, 10000);
     }
 
     public async void LargePelletEaten(LargePellet largePellet)     // if large pellet is eaten
@@ -144,7 +153,8 @@ public class GameManager : MonoBehaviour
         int delay = 0;
         largePellet.gameObject.SetActive(false);
         SetScore(score + 50);
-        
+        if(gameMode == "ClassicGame")
+            CheckIfAllPelletsEaten();
         if(movement.speedMultiplier != 1.25f)
         {
             movement.speedMultiplier = 1.25f;
@@ -159,7 +169,8 @@ public class GameManager : MonoBehaviour
             delay = 10000;
             
         isActive = largePellet.gameObject.GetComponent<LargePellet>().isActive;
-        SetActivePellet(largePellet.gameObject, isActive, delay);   
+        if(gameMode == "EndlessGame")
+            SetActivePellet(largePellet.gameObject, isActive, delay);   
     }
 
     public void SetActivePellet(GameObject pellet, bool isActive, int delay)      //set active pellet again
@@ -169,5 +180,29 @@ public class GameManager : MonoBehaviour
         
         else if(pellet.tag == "Large Pellet")
             pellet.GetComponent<LargePellet>().SetPelletState(isActive, delay);
+    }
+
+    public bool CheckIfAllPelletsEaten(bool countPellets = false)
+    {
+        if(pelletCount == 0 && countPellets)
+        {
+            foreach(Transform pellet in pellets)
+            {
+                if(pellet.gameObject.activeInHierarchy)
+                    pelletCount +=1;
+            }
+            return false;
+        }
+
+        else
+        {
+            pelletCount -=1;
+            if(pelletCount == 0)
+            {
+                GameOver();
+                return true;
+            }
+            return false;
+        }
     }
 }

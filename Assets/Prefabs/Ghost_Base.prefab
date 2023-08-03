@@ -118,8 +118,6 @@ GameObject:
   - component: {fileID: 4891421158047655070}
   - component: {fileID: 2489937405211805805}
   - component: {fileID: 6148395165013485943}
-  - component: {fileID: 6663663040134457789}
-  - component: {fileID: 7956850240771680348}
   m_Layer: 7
   m_Name: Ghost_Base
   m_TagString: Untagged
@@ -278,32 +276,6 @@ MonoBehaviour:
   duration: 0
   inside: {fileID: 0}
   outside: {fileID: 0}
---- !u!114 &6663663040134457789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259707676119580887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00388c599523ee44b347e73d3369bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Connection_Left: {fileID: 0}
---- !u!114 &7956850240771680348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259707676119580887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4118b8ccb9caafe4ca6ba9fe259f262f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Connection_Right: {fileID: 0}
 --- !u!1 &5457398195424690228
 GameObject:
   m_ObjectHideFlags: 0
