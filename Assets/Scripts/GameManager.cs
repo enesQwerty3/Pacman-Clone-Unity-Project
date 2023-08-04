@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
         SetScore(0);
         Setlives(3);
         SetHighscore(); 
-        if(gameMode == "ClassicGame")
+        if(gameMode == "Classic")
             CheckIfAllPelletsEaten(true);
         readyText.enabled = true;
         Invoke(nameof(ResetState), 3f);
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         Pacman.gameObject.SetActive(false);
         for(int i=0; i<4 ; i++)
             Ghosts[i].gameObject.SetActive(false);
+        Invoke("ReturnToMenu" ,3f);
     }
 
     private void NewRound()
@@ -135,10 +137,10 @@ public class GameManager : MonoBehaviour
         bool isActive;
         pellet.gameObject.SetActive(false);
         SetScore(this.score + 25);
-        if(gameMode == "ClassicGame")
+        if(gameMode == "Classic")
             CheckIfAllPelletsEaten();
         isActive = pellet.gameObject.GetComponent<Pellet>().isActive;
-        if(gameMode == "EndlessGame")
+        if(gameMode == "Endless")
             SetActivePellet(pellet.gameObject, isActive, 10000);
     }
 
@@ -153,7 +155,7 @@ public class GameManager : MonoBehaviour
         int delay = 0;
         largePellet.gameObject.SetActive(false);
         SetScore(score + 50);
-        if(gameMode == "ClassicGame")
+        if(gameMode == "Classic")
             CheckIfAllPelletsEaten();
         if(movement.speedMultiplier != 1.25f)
         {
@@ -169,7 +171,7 @@ public class GameManager : MonoBehaviour
             delay = 10000;
             
         isActive = largePellet.gameObject.GetComponent<LargePellet>().isActive;
-        if(gameMode == "EndlessGame")
+        if(gameMode == "Endless")
             SetActivePellet(largePellet.gameObject, isActive, delay);   
     }
 
@@ -204,5 +206,9 @@ public class GameManager : MonoBehaviour
             }
             return false;
         }
+    }
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }

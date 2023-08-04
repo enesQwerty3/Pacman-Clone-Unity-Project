@@ -1,7 +1,9 @@
 bbb 16800
 new 6700
 player4 6200
+gg 6200
 new2 6000
+baris 5925
 aaaa 5425
 player2 5000
 player3 4875
